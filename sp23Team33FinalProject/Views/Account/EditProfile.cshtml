@@ -1,0 +1,78 @@
+﻿@model EditProfileViewModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h1>Edit Profile</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditProfile" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserID" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="MiddleInitial" class="control-label"></label>
+                <input asp-for="MiddleInitial" class="form-control" />
+                <span asp-validation-for="MiddleInitial" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="MajorID" class="control-label"></label>
+                @Html.DropDownListFor(model => model.MajorID, (SelectList)ViewBag.AllMajors, new { @class = "form-control" })
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="GraduationYear" class="control-label"></label>
+                <select asp-for="GraduationYear" asp-items="Html.GetEnumSelectList<GraduationYearEnum>()" class="form-control"></select>
+                <span asp-validation-for="GraduationYear" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="PositionType" class="control-label"></label>
+                <select asp-for="PositionType" asp-items="Html.GetEnumSelectList<PositionType>()" class="form-control">
+                    <option selected="selected" value=""></option>
+                </select>
+                <span asp-validation-for="PositionType" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="GPA" class="control-label"></label>
+                <input asp-for="GPA" class="form-control" />
+                <span asp-validation-for="GPA" class="text-danger"></span>
+            </div>
+            <br />
+            @if (User.IsInRole("CSO"))
+            {
+                <div class="form-group">
+                    <label asp-for="Deactivate" class="control-label"></label><br />
+                    <input type="radio" class="radio" asp-for="Deactivate" value="@false" checked="checked" /> Active<br />
+                    <input type="radio" class="radio" asp-for="Deactivate" value="@true" /> Inactive<br />
+                </div>
+                <br />
+            }
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

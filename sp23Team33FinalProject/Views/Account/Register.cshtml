@@ -1,0 +1,82 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register a New User</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="MiddleInitial" class="control-label"></label>
+                <input asp-for="MiddleInitial" class="form-control" />
+                <span asp-validation-for="MiddleInitial" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="MajorID" class="control-label"></label>
+                @Html.DropDownListFor(model => model.MajorID, (SelectList)ViewBag.AllMajors, new { @class = "form-control" })
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="GraduationYear" class="control-label"></label>
+                <select asp-for="GraduationYear" asp-items="Html.GetEnumSelectList<GraduationYearEnum>()" class="form-control"></select>
+                <span asp-validation-for="GraduationYear" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="PositionType" class="control-label"></label><br />
+                <input type="radio" class="radio" asp-for="PositionType" value="@PositionType.FullTime" checked="checked" /> Full-Time<br />
+                <input type="radio" class="radio" asp-for="PositionType" value="@PositionType.Internship" /> Internship<br />
+                <span asp-validation-for="PositionType" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="GPA" class="control-label"></label>
+                <input asp-for="GPA" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="GPA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Home</a>
+</div>

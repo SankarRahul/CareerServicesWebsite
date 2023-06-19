@@ -1,0 +1,97 @@
+﻿@model IEnumerable<sp23Team33FinalProject.Models.Position>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of Positions</h1>
+
+<form asp-action="Index" asp-controller="Home" method="get">
+    <p class="form-group">
+        <a asp-action="PositionSearch" class="btn btn-success">Advanced Search</a>
+        <a asp-action="Index" class="btn btn-danger">Show All</a>
+    </p>
+</form>
+
+<n>Displaying @ViewBag.SelectedPositions of @ViewBag.AllPositions Positions</n>
+
+@if (User.Identity.IsAuthenticated && (User.IsInRole("Recruiter") || User.IsInRole("CSO")))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+    
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PositionTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PositionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deadline)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PositionTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PositionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deadline)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="Details" asp-route-id="@item.PositionID">Details</a> 
+                        <span>|</span>
+
+                        if (User.IsInRole("Recruiter") || User.IsInRole("CSO"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.PositionID">Edit</a>
+                            <span>|</span>
+                            <a asp-action="Delete" asp-route-id="@item.PositionID">Delete</a>
+                            <span>|</span>
+                            <a asp-action="Invite" asp-controller="Interviews" asp-route-positionID="@item.PositionID">Invite Students</a>
+                            <span>|</span>
+                            if(User.IsInRole("Recruiter"))
+                            {
+                                <a asp-action="ReserveRoom" asp-controller="Interviews" asp-route-positionID="@item.PositionID">Reserve Rooms</a>
+                            }
+                        }
+
+                        if (User.IsInRole("Student"))
+                        {
+                            <a asp-action="ApplyPosition" asp-controller="Account" asp-route-positionID="@item.PositionID">Apply</a>
+                        }
+                        
+                    }
+                    
+                </td>
+         
+            </tr>
+         }
+
+    </tbody>
+</table>

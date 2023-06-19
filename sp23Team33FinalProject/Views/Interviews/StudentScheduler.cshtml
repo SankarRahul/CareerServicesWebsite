@@ -1,0 +1,30 @@
+﻿@model IEnumerable<sp23Team33FinalProject.Models.Interview>
+
+@{
+    ViewData["Title"] = "StudentScheduler";
+}
+
+<h1>Student Interview Scheduler</h1>
+<br />
+<h5>Your Interview Invitations</h5>
+<table class="table table-primary">
+    <tr>
+        <th>Date and Time</th>
+        <th>Room</th>
+        <th>Interviewer First Name</th>
+        <th>Interviewer Last Name</th>
+        <th>Position Name</th>
+        <th>Accept</th>
+    </tr>
+    @foreach (Interview i in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(ModelItem => i.InterviewDateTime)</td>
+            <td>@Html.DisplayFor(ModelItem => i.Room)</td>
+            <td>@Html.DisplayFor(ModelItem => i.Host.FirstName)</td>
+            <td>@Html.DisplayFor(ModelItem => i.Host.LastName)</td>
+            <td>
+            </td>
+        </tr>
+    }
+</table>

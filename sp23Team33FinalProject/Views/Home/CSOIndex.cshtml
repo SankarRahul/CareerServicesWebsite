@@ -1,0 +1,51 @@
+﻿@model IEnumerable<sp23Team33FinalProject.Models.AppUser>
+
+@{
+    ViewData["Title"] = "CSO Index";
+}
+
+<h1>Index</h1>
+
+<form asp-action="Index" asp-controller="Home" method="get">
+</form>
+
+<!--TODO: add an view profile button-->
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("CSO"))
+{
+    <p>
+        <a asp-action="RegisterCSO" asp-controller="Account">Create New</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("CSO"))
+                    {
+                        <a asp-action="EditCSOProfile" asp-controller="Account" asp-route-csoID="@item.Id">Edit</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

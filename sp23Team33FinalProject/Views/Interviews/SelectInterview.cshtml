@@ -1,0 +1,58 @@
+﻿@model sp23Team33FinalProject.Models.InterviewSelectViewModel
+
+@{
+    ViewData["Title"] = "SelectInterview";
+}
+
+<h1>Reserve a Room</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ConfirmInterviewTime" method="post">
+            <input type="hidden" asp-for="PositionID" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <dt>Position:</dt>
+                <dd>@Model.PositionName</dd>
+            </div>
+            <br />
+            <div>
+                <dt>Company:</dt>
+                <dd>@Model.CompanyName</dd>
+            </div>
+            <br />
+            <h5>Available Interviews:</h5>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Interview Times:</th>
+                </tr>
+                @foreach (Interview interview in Model.Interviews)
+                {
+                    <tr>
+                        <td>
+                            @interview.InterviewDateTime
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="form-group">
+                <label asp-for="SelectedDate" class="control-label"></label>
+                <input asp-for="SelectedDate" class="form-control" />
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="SelectedHour" class="control-label"></label>
+                <input asp-for="SelectedHour" type="number" step="1" class="form-control" />
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

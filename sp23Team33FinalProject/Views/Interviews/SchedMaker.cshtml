@@ -1,0 +1,37 @@
+﻿@model sp23Team33FinalProject.Models.Interview
+
+@{
+    ViewData["Title"] = "Schedule Maker";
+}
+
+<h1>Set Interview Slots</h1>
+
+<h4>Interview</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <input type="hidden" asp-for="Application.Position.PositionID" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="InterviewDateTime" class="control-label"></label>
+                <input asp-for="InterviewDateTime" class="form-control" />
+                <span asp-validation-for="InterviewDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Room" class="control-label"></label>
+                <select asp-for="Room" asp-items="Html.GetEnumSelectList<Room>()" class="form-control">
+                </select>
+                <span asp-validation-for="Room" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Host" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Host, (SelectList)ViewBag.AllHosts, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

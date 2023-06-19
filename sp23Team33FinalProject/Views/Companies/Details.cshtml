@@ -1,0 +1,76 @@
+﻿@model sp23Team33FinalProject.Models.Company
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Company</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyDesc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyDesc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyEmail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyEmail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Industry1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Industry1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Industry2)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Industry2)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Industry3)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Industry3)
+        </dd>
+    </dl>
+</div>
+<br/>
+<h5>Available Positions:</h5>
+<table class="table table-bordered">
+    <tr>
+        <th>Positions:</th>
+    </tr>
+    @foreach (Position position in Model.Positions)
+    {
+        <tr>
+            <td>@position.PositionTitle</td>
+            <td>
+                <a asp-action="Details" asp-controller="Positions" asp-route-id="@position.PositionID">Details</a>
+                @if (User.IsInRole("Student"))
+                {
+                    <span>|</span>
+                    <a asp-action="ApplyPosition" asp-controller="Account" asp-route-positionID="@position.PositionID">Apply</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CompanyID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

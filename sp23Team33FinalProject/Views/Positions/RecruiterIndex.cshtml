@@ -1,0 +1,39 @@
+﻿@model IEnumerable<sp23Team33FinalProject.Models.Position>
+
+
+@{
+    ViewData["Title"] = "RecruiterIndex";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PositionTitle)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PositionTitle)
+                </td>
+                <td>
+                    <a asp-controller="Interviews" asp-action="SchedMaker" asp-route-id="@item.PositionID">Set Interview Schedule</a>
+                </td>
+                <td>
+                    <a asp-controller="Applications" asp-action="Invite" asp-route-id="@item.PositionID">Invite Student to Interview</a>
+                </td>
+                @*<td>
+            @Html.ActionLink("SchedMaker", "SchedMaker", new { id = item.Application.Position.PositionID })
+        </td>*@
+            </tr>
+
+        }
+    </tbody>
+</table>

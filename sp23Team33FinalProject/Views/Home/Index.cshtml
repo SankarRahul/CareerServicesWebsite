@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<h1>Welcome to Our Recruitment Site!</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-action="Index" asp-controller="Positions" class="btn btn-info">View Positions</a>
+    <a asp-action="Index" asp-controller="Companies" class="btn btn-info">View Companies</a>
+    <a asp-action="Index" asp-controller="Applications" class="btn btn-info">View Applications</a>
+
+    if (User.IsInRole("CSO"))
+    {
+        <a asp-action="StudentsIndex" asp-controller="Home" class="btn btn-info">View Student Profiles</a>
+        <a asp-action="RecruitersIndex" asp-controller="Home" class="btn btn-info">View recruiter profiles</a>
+        <a asp-action="CSOIndex" asp-controller="Home" class="btn btn-info">View CSO Profiles</a>
+        <a asp-action="Index" asp-controller="Interviews" class="btn btn-info">View Interview Schedule</a>
+        <a asp-action="ReserveRoom" asp-controller="Interviews" class="btn btn-info">Reserve Room</a>
+        <a asp-action="RoomVisual" asp-controller="Interviews" class="btn btn-info">Room Booking Chart</a>
+    }
+
+    if (User.IsInRole("Student"))
+    {
+        <a asp-action="Index" asp-controller="Interviews" class="btn btn-info">View my Interviews</a>
+    }
+
+    if (User.IsInRole("Recruiter"))
+    {
+        <a asp-action="StudentsIndex" asp-controller="Home" class="btn btn-info">View Student Profiles</a>
+        <a asp-action="Index" asp-controller="Interviews" class="btn btn-info">View Interviews</a>
+        <a asp-action="RoomVisual" asp-controller="Interviews" class="btn btn-info">Room Booking Chart</a>
+    }
+
+}
+
+

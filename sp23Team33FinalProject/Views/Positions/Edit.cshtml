@@ -1,0 +1,58 @@
+﻿@model sp23Team33FinalProject.Models.Position
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Position</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit"> @*method="post"> @*check if "post"" helps*@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PositionID" />
+            <div class="form-group">
+                <label asp-for="PositionTitle" class="control-label"></label>
+                <input asp-for="PositionTitle" class="form-control" />
+                <span asp-validation-for="PositionTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PositionDescription" class="control-label"></label>
+                <input asp-for="PositionDescription" class="form-control" />
+                <span asp-validation-for="PositionDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PositionType" class="control-label"></label>
+                <select asp-for="PositionType" asp-items="Html.GetEnumSelectList<PositionType>()" class="form-control">
+                </select>
+                <span asp-validation-for="PositionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Company:</label>
+                @Html.DropDownList("SelectedCompany", (SelectList)ViewBag.AllCompanies, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Accepted Majors:</label>
+                @Html.ListBox("SelectedMajors", (MultiSelectList)ViewBag.AllMajors, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+                <label asp-for="Deadline" class="control-label"></label>
+                <input asp-for="Deadline" class="form-control" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

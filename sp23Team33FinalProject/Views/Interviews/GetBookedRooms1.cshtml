@@ -1,0 +1,61 @@
+﻿@model IEnumerable<sp23Team33FinalProject.Models.Interview>
+
+@{
+    ViewData["Title"] = "GetBookedRooms1";
+}
+
+<div id="table-container"></div>
+
+<script>let bookedRooms = [];
+
+    function generateAvailabilityTable() {
+        const days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+        const times = ["8:00am", "9:00am", "10:00am", "11:00am", "1:00pm", "2:00pm", "3:00pm", "4:00pm"];
+
+        let tableHTML = "<table><thead><tr><th></th>";
+
+        // Generate table headings for times
+
+        times.forEach(time => {
+            tableHTML += `<th>${time}</th>`;
+        });
+
+        tableHTML += "</tr></thead><tbody>";
+
+        // Generate table rows for days and availability
+
+        days.forEach(day => {
+            tableHTML += `<tr><th>${day}</th>`;
+
+            times.forEach(time => {
+                tableHTML += `<td>${isRoomBooked(day, time) ? "Booked" : "Available"}</td>`;
+            });
+
+            tableHTML += "</tr>";
+        });
+
+        tableHTML += "</tbody></table>";
+
+        return tableHTML;
+    }
+
+    function isRoomBooked(day, time) {
+        return bookedRooms.some(room => room.day === day && room.time === time);
+    }
+
+    function getBookedRooms() {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "/api/bookedRooms");
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                bookedRooms = JSON.parse(xhr.response);
+                document.getElementById("table-container").innerHTML = generateAvailabilityTable();
+            } else {
+                console.error(xhr.statusText);
+            }
+        };
+        xhr.send();
+    }
+
+    // Call the getBookedRooms function to populate the bookedRooms array
+    getBookedRooms();</script>

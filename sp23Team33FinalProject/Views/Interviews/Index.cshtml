@@ -1,0 +1,68 @@
+@model IEnumerable<sp23Team33FinalProject.Models.Interview>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Room)
+            </th>
+            <th>
+                <p>Student Email: </p>
+            </th>
+            <th>
+                <p>Interviewer First Name: </p>
+            </th>
+            <th>
+                <p>Interviewer Last Name: </p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterviewDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Room)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Host.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Host.LastName)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("Recruiter") || User.IsInRole("CSO")))
+                    {
+                        <a asp-action="EditHost" asp-route-interviewID="@item.InterviewID">Edit Host</a>
+                        <span>|</span>
+                    }
+                    @*@if (User.Identity.IsAuthenticated && User.IsInRole("Student"))
+                    {
+                        <a asp-action="Edit" asp-route-interviewID="@item.InterviewID">Edit Time</a>
+                        <span>|</span>
+                    }*@
+                    <a asp-action="Details" asp-route-id="@item.InterviewID">Details</a> |
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.InterviewID">Cancel</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

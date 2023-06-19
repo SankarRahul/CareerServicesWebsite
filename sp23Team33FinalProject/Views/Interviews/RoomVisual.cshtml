@@ -1,0 +1,70 @@
+﻿@model List<Interview>
+
+@{
+    var daysOfWeek = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+    var startTime = new TimeSpan(8, 0, 0);
+    var endTime = new TimeSpan(16, 0, 0);
+
+    var rooms = new List<Room> { Room.Room1, Room.Room2, Room.Room3, Room.Room4 };
+
+    var slots = new List<DateTime>();
+    var currentDate = DateTime.Today;
+    if (currentDate.DayOfWeek == DayOfWeek.Saturday)
+    {
+        currentDate = currentDate.AddDays(2);
+    }
+    if (currentDate.DayOfWeek == DayOfWeek.Sunday)
+    {
+        currentDate = currentDate.AddDays(1);
+    }
+    for (var i = 0; i < 10; i++)
+    {
+        for (var time = startTime; time <= endTime; time += TimeSpan.FromHours(1))
+        {
+            if (time == new TimeSpan(12, 0, 0))
+            {
+                continue;
+            }
+            slots.Add(currentDate.Add(time));
+        }
+        if(currentDate.DayOfWeek== DayOfWeek.Friday)
+        {
+            currentDate = currentDate.AddDays(3);
+        }
+        else
+        {
+            currentDate = currentDate.AddDays(1);
+        }
+    }
+}
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            @foreach (var room in rooms)
+            {
+                <th>@room</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var slot in slots)
+        {
+            <tr>
+                <td>@slot</td>
+                @foreach (var room in rooms)
+                {
+                    @if (Model.Any(interview => interview.Room == room && interview.InterviewDateTime == slot))
+                    {
+                        <td style="color: red;">booked</td>
+                    }
+                    else
+                    {
+                        <td style="color: green;">available</td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>

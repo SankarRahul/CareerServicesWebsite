@@ -1,0 +1,65 @@
+@model sp23Team33FinalProject.Models.Interview
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Interview</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="InterviewID" />
+            <h5>Available Interviewers:</h5>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Interviewers:</th>
+                </tr>
+                @foreach (AppUser host in ViewBag.AllHosts)
+                {
+                    <tr>
+                        <th>
+                            Host First Name:
+                        </th>
+                        <td>
+                            @host.FirstName
+                        </td>
+                        <th>
+                            Host Last Name:
+                        </th>
+                        <td>
+                            @host.LastName
+                        </td>
+                        <th>
+                            Host Email:
+                        </th>
+                        <td>
+                            @host.Email
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="form-group">
+                <label asp-for="InterviewDateTime" class="control-label"></label>
+                <input asp-for="InterviewDateTime" class="form-control" />
+                <span asp-validation-for="InterviewDateTime" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="Room" class="control-label"></label>
+                <select asp-for="Room" class="form-control"></select>
+                <span asp-validation-for="Room" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

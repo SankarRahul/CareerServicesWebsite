@@ -1,0 +1,44 @@
+﻿@model sp23Team33FinalProject.Models.ReserveRoomViewModel
+
+@{
+    ViewData["Title"] = "ReserveRoom";
+}
+
+<h1>Reserve a Room</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ConfirmReserveRoom" method="post">
+            @if(User.IsInRole("Recruiter")) {
+                <input type="hidden" asp-for="PositionID" />
+            }
+            <input type="hidden" asp-for="HostUserName" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StartAvail" class="control-label"></label>
+                <input asp-for="StartAvail" class="form-control" />
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="EndAvail" class="control-label"></label>
+                <input asp-for="EndAvail" class="form-control" />
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Room" class="control-label"></label>
+                <select asp-for="Room" asp-items="Html.GetEnumSelectList<Room>()" class="form-control">
+                </select>
+                <span asp-validation-for="Room" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

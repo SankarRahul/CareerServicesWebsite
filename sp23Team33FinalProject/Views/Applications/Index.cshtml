@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Application>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@*Need to Delete create action? yeah *@
+
+<!--
+@if (User.Identity.IsAuthenticated && User.IsInRole("Recruiter"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+
+    <h1>Manage Student Applications</h1>
+}
+    -->
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Position.PositionTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position.Company.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppStatus)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position.PositionTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position.Company.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppStatus)
+                </td>
+                <td>
+                    <!-- Edit & Details need to be modified to business rules-->
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Recruiter"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ApplicationID">Edit App Status</a> 
+                        <span>|</span>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.ApplicationID">Details</a> 
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Student"))
+                    {
+                        @if(item.AppStatus == Status.Accepted)
+                        {
+                            <span>|</span>
+                            <a asp-action="SelectInterview" asp-controller="Interviews" asp-route-positionID="@item.Position.PositionID">Accept Interview</a>
+                        }
+                        else
+                        {
+                            <span>|</span>
+                            <a asp-action="Delete" asp-route-id="@item.ApplicationID">Withdraw</a>
+                        }
+                    }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("CSO"))
+                    {
+                        <span>|</span>
+                        <a asp-action="Delete" asp-route-id="@item.ApplicationID">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

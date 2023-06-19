@@ -1,0 +1,34 @@
+﻿@model sp23Team33FinalProject.Models.RecruiterSearchViewModel
+
+@{
+    ViewData["Title"] = "RecruiterSearch";
+}
+
+<h1>Position Search</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DisplayRecruiterSearchResults" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RecruiterName" class="control-label"></label>
+                <input asp-for="RecruiterName" class="form-control" />
+                <span asp-validation-for="RecruiterName" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="CompanyIDs" class="control-label"></label>
+                @Html.ListBoxFor(model => model.CompanyIDs, (MultiSelectList)ViewBag.AllCompanies, new { @class = "form-control" })
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="RecruitersIndex">Back to List</a>
+</div>

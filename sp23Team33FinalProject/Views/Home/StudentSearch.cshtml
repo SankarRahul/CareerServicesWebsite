@@ -1,0 +1,66 @@
+﻿@model sp23Team33FinalProject.Models.StudentSearchViewModel
+
+@{
+    ViewData["Title"] = "StudentSearch";
+}
+
+<h1>Position Search</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DisplayStudentSearchResults" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StudentName" class="control-label"></label>
+                <input asp-for="StudentName" class="form-control" />
+                <span asp-validation-for="StudentName" class="text-danger"></span>
+            </div>
+            <br/>
+            <div>
+                <div class="form-group">
+                    <label asp-for="GradYear" class="control-label"></label>
+                    <select asp-for="GradYear" asp-items="Html.GetEnumSelectList<GraduationYearEnum>()" class="form-control">
+                        <option selected="selected" value="">All Grad Years</option>
+                    </select>
+                    <span asp-validation-for="GradYear" class="text-danger"></span>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="MajorIDs" class="control-label"></label>
+                @Html.ListBoxFor(model => model.MajorIDs, (MultiSelectList)ViewBag.AllMajors, new { @class = "form-control" })
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="GPA" class="control-label"></label>
+                <input asp-for="GPA" type="number" step="0.1" class="form-control" />
+                <span asp-validation-for="GPA" class="text-danger"></span>
+            </div>
+            <!--Default to "less than" for GPA search type-->
+            <div class="form-group">
+                <label asp-for="GPASearchType" class="control-label"></label>
+                <input type="radio" class="radio" checked="checked" asp-for="GPASearchType" value="@GPASearchType.LessThan" /> Less Than
+                <input type="radio" class="radio" asp-for="GPASearchType" value="@GPASearchType.GreaterThan" /> Greater Than
+                <span asp-validation-for="GPASearchType" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="PositionType" class="control-label"></label>
+                <select asp-for="PositionType" asp-items="Html.GetEnumSelectList<PositionType>()" class="form-control">
+                    <option selected="selected" value="">All Position Types</option>
+                </select>
+                <span asp-validation-for="PositionType" class="text-danger"></span>
+            </div>       
+
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="StudentsIndex">Back to List</a>
+</div>

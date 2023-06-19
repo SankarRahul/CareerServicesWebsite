@@ -1,0 +1,60 @@
+@model sp23Team33FinalProject.Models.Interview
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Interview</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InterviewDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InterviewDateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Room)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Room)
+        </dd>
+        <dt class="col-sm-2">
+            <p>Student Email: </p>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Application.Student.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Application.Position.PositionTitle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Application.Position.PositionTitle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Application.Position.Company.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Application.Position.Company.CompanyName)
+        </dd>
+        <dt class="col-sm-2">
+            <p>Interviewer First Name: </p>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Host.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            <p>Interviewer Last Name: </p>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Host.LastName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.InterviewID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

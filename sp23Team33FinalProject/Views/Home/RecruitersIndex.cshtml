@@ -1,0 +1,62 @@
+﻿@model IEnumerable<sp23Team33FinalProject.Models.AppUser>
+
+@{
+    ViewData["Title"] = "Recruiter Index";
+}
+
+<h1>Index</h1>
+
+<form asp-action="Index" asp-controller="Home" method="get">
+    <p class="form-group">
+        <a asp-action="RecruiterSearch" class="btn btn-success">Advanced Search</a>
+        <a asp-action="RecruitersIndex" class="btn btn-danger">Show All</a>
+    </p>
+</form>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("CSO"))
+{
+    <p>
+        <a asp-action="RegisterRecruiter" asp-controller="Account" >Create New</a>
+    </p>
+}
+
+<n>Displaying @ViewBag.SelectedRecruiters of @ViewBag.AllRecruiters Recruiters</n>
+
+<!--TODO: add an view profile button-->
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company.CompanyName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("CSO"))
+                    {
+                        <a asp-action="EditRecruiterProfile" asp-controller="Account" asp-route-recruiterID="@item.Id">Edit</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

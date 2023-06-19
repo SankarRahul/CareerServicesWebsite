@@ -1,0 +1,83 @@
+﻿@model IEnumerable<sp23Team33FinalProject.Models.AppUser>
+
+@{
+    ViewData["Title"] = "Student Index";
+
+}
+
+
+
+<h1>List of Students</h1>
+
+<form asp-action="Index" asp-controller="Home" method="get">
+    <p class="form-group">
+        <a asp-action="StudentSearch" class="btn btn-success">Advanced Search</a>
+        <a asp-action="StudentsIndex" class="btn btn-danger">Show All</a>
+    </p>
+</form>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("CSO"))
+{
+    <p>
+        <a asp-action="Register" asp-controller="Account">Create New</a>
+    </p>
+}
+
+<n>Displaying @ViewBag.SelectedStudents of @ViewBag.AllStudents Students</n>
+
+<!--TODO: add an view profile button-->
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GraduationYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Major.MajorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GPA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PositionType)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GraduationYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Major.MajorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GPA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PositionType)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("CSO"))
+                    {
+                        <a asp-action="EditProfile" asp-controller="Account" asp-route-studentID="@item.Id">Edit</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

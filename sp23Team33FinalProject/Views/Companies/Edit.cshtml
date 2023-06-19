@@ -1,0 +1,95 @@
+﻿@model sp23Team33FinalProject.Models.Company
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Company</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CompanyID" />
+            <div class="form-group">
+                <label asp-for="CompanyName" class="control-label"></label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyDesc" class="control-label"></label>
+                <input asp-for="CompanyDesc" class="form-control" />
+                <span asp-validation-for="CompanyDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyEmail" class="control-label"></label>
+                <input asp-for="CompanyEmail" class="form-control" />
+                <span asp-validation-for="CompanyEmail" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label asp-for="Industry1" class="control-label"></label>
+                    <select asp-for="Industry1" asp-items="Html.GetEnumSelectList<Industry>()" class="form-control"></select>
+                    <span asp-validation-for="Industry1" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Industry2" class="control-label"></label>
+                    <select asp-for="Industry2" asp-items="Html.GetEnumSelectList<Industry>()" class="form-control">
+                        <option selected="selected" value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Industry2" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Industry3" class="control-label"></label>
+                    <select asp-for="Industry3" asp-items="Html.GetEnumSelectList<Industry>()" class="form-control">
+                        <option selected="selected" value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Industry3" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            
+            <table class="table table-primary">
+
+                @foreach (Position od in Model.Positions)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(ModelItem => od.PositionTitle)</td>
+
+                    </tr>
+                }
+            </table>
+
+            <!--
+    <div class="form-group">
+        <label asp-for="Industry1" class="control-label"></label>
+        <select asp-for="Industry1" class="form-control"></select>
+        <span asp-validation-for="Industry1" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Industry2" class="control-label"></label>
+        <input asp-for="Industry2" class="form-control" />
+        <span asp-validation-for="Industry2" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Industry3" class="control-label"></label>
+        <input asp-for="Industry3" class="form-control" />
+        <span asp-validation-for="Industry3" class="text-danger"></span>
+    </div> -->
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

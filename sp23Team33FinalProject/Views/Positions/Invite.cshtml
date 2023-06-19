@@ -1,0 +1,27 @@
+﻿@model sp23Team33FinalProject.Models.Position
+
+@{
+    ViewData["Title"] = "Invite";
+}
+
+<h1>Invite Students to Interview</h1>
+<br />
+<p>Send interviews invitations to students that applied</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Invite">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<input type="hidden" asp-for="PositionID" />*@
+
+            <div class="form-group">
+                <input type="submit" value="Send" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
