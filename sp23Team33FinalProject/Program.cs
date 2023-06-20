@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-String connectionString = "Server=tcp:sp23team33finalproject.database.windows.net,1433;Initial Catalog=sp23Team33FinalProject;Persist Security Info=False;User ID=MISAdmin;Password=BananaBoat!;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+String connectionString = "Server=tcp:sp23team33finalproject.database.windows.net,1433;Initial Catalog=sp23Team33FinalProject;Persist Security Info=False;User ID=MISAdmin;Password=error101;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
 //NOTE: This tells your application how to get a connection to the database
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
